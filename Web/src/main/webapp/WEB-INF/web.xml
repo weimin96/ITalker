@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app>
 
-    <display-name>iTalker</display-name>
+    <display-name>imTalker</display-name>
 
     <servlet>
         <servlet-name>ITalkerApiServlet</servlet-name>
