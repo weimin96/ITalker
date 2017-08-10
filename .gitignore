@@ -45,3 +45,7 @@ Web/.idea/
 Web/build/
 Web/.gradle/
 App/ITalker/.idea/
+App/ITalker/app/src/androidTest/
+App/ITalker/app/src/test/
+App/ITalker/common/src/test/
+App/ITalker/common/src/androidTest/
