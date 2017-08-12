@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+
 import com.aoliao.example.common.R;
 
 import java.util.ArrayList;
@@ -74,7 +75,7 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
 
         //设置view的tag为viewHolder，进行双向绑定 达到重用目的
         //这里避免tag被占用，使用了key，第二个参数为object类型
-        root.setTag(R.id.tag_recyclerView_holder, holder);
+        root.setTag(R.id.tag_recycler_holder, holder);
 
         root.setOnClickListener(this);
         root.setOnLongClickListener(this);
@@ -110,7 +111,7 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
     @Override
     public void onClick(View v) {
         if (mListener != null) {
-            ViewHolder viewHolder = (ViewHolder) v.getTag(R.id.tag_recyclerView_holder);
+            ViewHolder viewHolder = (ViewHolder) v.getTag(R.id.tag_recycler_holder);
             int pos = viewHolder.getAdapterPosition();
             mListener.onItemClick(viewHolder, mDataList.get(pos));
         }
@@ -119,7 +120,7 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
     @Override
     public boolean onLongClick(View v) {
         if (mListener != null) {
-            ViewHolder viewHolder = (ViewHolder) v.getTag(R.id.tag_recyclerView_holder);
+            ViewHolder viewHolder = (ViewHolder) v.getTag(R.id.tag_recycler_holder);
             int pos = viewHolder.getAdapterPosition();
             mListener.onItemLongClick(viewHolder, mDataList.get(pos));
             return true;
@@ -183,6 +184,17 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
         }
     }
 
+    @Override
+    public void update(T t, ViewHolder<T> holder) {
+        //得到当前viewHolder的坐标
+        int pos = holder.getAdapterPosition();
+        if (pos >= 0) {
+            mDataList.remove(pos);
+            mDataList.add(pos, t);
+            notifyItemChanged(pos);
+        }
+    }
+
     /**
      * 删除操作
      */
@@ -204,7 +216,7 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
         notifyDataSetChanged();
     }
 
-    abstract static class ViewHolder<T> extends RecyclerView.ViewHolder {
+    public abstract static class ViewHolder<T> extends RecyclerView.ViewHolder {
         private AdapterCallback<T> mCallback;
         private Unbinder mUnbinder;
         T mData;
@@ -230,10 +242,28 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
          */
         protected abstract void onBind(T t);
 
-        protected void updateData(T data) {
+        public void updateData(T data) {
             if (this.mCallback != null) {
                 this.mCallback.update(data, this);
             }
+        }
+    }
+
+    /**
+     * 对回调接口做一次实现AdapterListener
+     *
+     * @param <T>
+     */
+    public static abstract class AdapterListenerImpl<T> implements AdapterListener<T> {
+
+        @Override
+        public void onItemClick(ViewHolder holder, T t) {
+
+        }
+
+        @Override
+        public void onItemLongClick(ViewHolder holder, T t) {
+
         }
     }
 }
