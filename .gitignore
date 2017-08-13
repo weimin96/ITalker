@@ -49,3 +49,7 @@ App/ITalker/app/src/androidTest/
 App/ITalker/app/src/test/
 App/ITalker/common/src/test/
 App/ITalker/common/src/androidTest/
+App/ITalker/factory/src/test/
+App/ITalker/factory/src/androidTest/
+App/ITalker/lang/src/test/
+App/ITalker/lang/src/androidTest/

@@ -38,5 +38,5 @@ ext{
     circleimageviewVersion = '2.1.0'
     ucropVersion = "2.2.0-native"
     easyPMVersion = "0.3.0"
-    ossVersion = '2.3.0'
+    ossVersion = '2.4.2'
 }

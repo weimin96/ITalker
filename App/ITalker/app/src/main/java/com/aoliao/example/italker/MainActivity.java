@@ -1,5 +1,7 @@
 package com.aoliao.example.italker;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -15,6 +17,7 @@ import android.widget.TextView;
 import com.aoliao.example.common.app.Activity;
 import com.aoliao.example.common.widget.PortraitView;
 import com.aoliao.example.italker.activities.AccountActivity;
+import com.aoliao.example.italker.fragments.assist.PermissionFragment;
 import com.aoliao.example.italker.fragments.main.ActiveFragment;
 import com.aoliao.example.italker.fragments.main.ContactFragment;
 import com.aoliao.example.italker.fragments.main.GroupFragment;
@@ -42,6 +45,10 @@ public class MainActivity extends Activity implements BottomNavigationView.OnNav
     @Override
     protected int getContentLayoutId() {
         return R.layout.activity_main;
+    }
+
+    public static void show(Context context){
+        context.startActivity(new Intent(context,MainActivity.class));
     }
 
     @Override

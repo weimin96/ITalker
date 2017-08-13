@@ -4,10 +4,6 @@ package com.aoliao.example.italker.fragments.account;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.aoliao.example.common.app.Application;
 import com.aoliao.example.common.app.Fragment;
@@ -26,7 +22,7 @@ import static android.app.Activity.RESULT_OK;
 
 public class UpdateInfoFragment extends Fragment {
     @BindView(R.id.im_portrait)
-    PortraitView mPortrait;;
+    PortraitView mPortrait;
 
 
     public UpdateInfoFragment() {
@@ -72,9 +68,10 @@ public class UpdateInfoFragment extends Fragment {
             if (resultUri!=null){
                 loadPortrait(resultUri);
             }
-        } else if (resultCode == UCrop.RESULT_ERROR) {
-            final Throwable cropError = UCrop.getError(data);
         }
+//        else if (resultCode == UCrop.RESULT_ERROR) {
+//            final Throwable cropError = UCrop.getError(data);
+//        }
     }
 
     private void loadPortrait(Uri uri) {
