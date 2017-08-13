@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.aoliao.example.common.app.Activity;
 import com.aoliao.example.common.widget.PortraitView;
+import com.aoliao.example.italker.activities.AccountActivity;
 import com.aoliao.example.italker.fragments.main.ActiveFragment;
 import com.aoliao.example.italker.fragments.main.ContactFragment;
 import com.aoliao.example.italker.fragments.main.GroupFragment;
@@ -73,18 +74,11 @@ public class MainActivity extends Activity implements BottomNavigationView.OnNav
 
     @OnClick(R.id.btn_action)
     void onActionClick() {
-
+        AccountActivity.show(MainActivity.this);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId()==R.id.action_home) {
-            ActiveFragment activeFragment = new ActiveFragment();
-            FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-            ft.add(R.id.lay_container, activeFragment);
-            ft.commit();
-            Log.i("haha", "onNavigationItemSelected: ");
-        }
         return true;
     }
 }

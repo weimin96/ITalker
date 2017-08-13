@@ -1,0 +1,17 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.aoliao.example.italker.fragments.account.UpdateInfoFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <com.aoliao.example.common.widget.PortraitView
+        android:id="@+id/im_portrait"
+        android:layout_width="@dimen/portraitMaxSize"
+        android:layout_height="@dimen/portraitMaxSize"
+        android:scaleType="centerCrop"
+        android:layout_gravity="center"
+        android:src="@color/colorAccent"
+        android:text="@string/hello_blank_fragment"/>
+
+</FrameLayout>

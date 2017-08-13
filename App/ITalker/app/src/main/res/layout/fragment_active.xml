@@ -5,12 +5,5 @@
     android:layout_height="match_parent"
     tools:context="com.aoliao.example.italker.fragments.main.ActiveFragment">
 
-    <com.aoliao.example.common.widget.GalleyView
-        android:id="@+id/gv_galleyView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="1dp">
-
-    </com.aoliao.example.common.widget.GalleyView>
 
 </FrameLayout>
