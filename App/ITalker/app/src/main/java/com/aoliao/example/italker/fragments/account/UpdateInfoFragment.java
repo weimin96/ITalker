@@ -4,10 +4,13 @@ package com.aoliao.example.italker.fragments.account;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.util.Log;
 
 import com.aoliao.example.common.app.Application;
 import com.aoliao.example.common.app.Fragment;
 import com.aoliao.example.common.widget.PortraitView;
+import com.aoliao.example.factory.Factory;
+import com.aoliao.example.factory.net.UploadHelper;
 import com.aoliao.example.italker.R;
 import com.aoliao.example.italker.fragments.media.GalleryFragment;
 import com.bumptech.glide.Glide;
@@ -19,6 +22,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class UpdateInfoFragment extends Fragment {
     @BindView(R.id.im_portrait)
@@ -46,7 +50,7 @@ public class UpdateInfoFragment extends Fragment {
                 options.setCompressionQuality(96);
                 //得到头像的缓存地址
                 File dFile = Application.getPortraitTmpFile();
-
+                //需要剪切的图片 剪切后图片的缓存地址
                 UCrop.of(Uri.fromFile(new File(path)), Uri.fromFile(dFile))
                         .withAspectRatio(1, 1)   //1：1比例
                         .withMaxResultSize(525, 520) //范围最大的尺寸
@@ -65,7 +69,7 @@ public class UpdateInfoFragment extends Fragment {
         if (resultCode == RESULT_OK && requestCode == UCrop.REQUEST_CROP) {
             // 通过UCrop得到对应的Uri
             final Uri resultUri = UCrop.getOutput(data);
-            if (resultUri!=null){
+            if (resultUri != null) {
                 loadPortrait(resultUri);
             }
         }
@@ -80,6 +84,14 @@ public class UpdateInfoFragment extends Fragment {
                 .asBitmap()
                 .centerCrop()
                 .into(mPortrait);
+
+        final String localPath = uri.getPath();
+        Factory.runOnAsync(new Runnable() {
+            @Override
+            public void run() {
+                UploadHelper.uploadPortrait(localPath);
+            }
+        });
     }
 
 }
