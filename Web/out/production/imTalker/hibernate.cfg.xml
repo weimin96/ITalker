@@ -1,18 +1,16 @@
 <?xml version='1.0' encoding='utf-8'?>
 <!DOCTYPE hibernate-configuration PUBLIC
-    "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
-    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+        "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
 <hibernate-configuration>
     <session-factory>
         <!-- 数据库链接驱动 -->
         <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>
         <!--链接地址用户名密码 -->
-        <property name="connection.url">
-            jdbc:mysql://127.0.0.1:3306/DB_ITalker_TEST?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false
-        </property>
+        <property name="connection.url">jdbc:mysql://127.0.0.1:3306/DB_I_T_PUSH?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</property>
         <property name="connection.username">root</property>
-        <property name="connection.password">a123456</property>
+        <property name="connection.password">123456</property>
 
         <!--<property name="connection.url">jdbc:mysql://qiujuer.net:6968/DB_I_T_PUSH?serverTimezone=UTC&amp;useUnicode=true&amp;characterEncoding=utf8&amp;useSSL=false</property>-->
 
@@ -27,8 +25,7 @@
         <property name="current_session_context_class">thread</property>
 
         <!-- 配置C3P0缓存链接池  -->
-        <property name="cache.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider
-        </property>
+        <property name="cache.provider_class">org.hibernate.c3p0.internal.C3P0ConnectionProvider</property>
         <!--在连接池中可用数据库连接的最小数目-->
         <property name="c3p0.min_size">6</property>
         <!--在连接池中所有数据库连接的最大数目-->
@@ -58,23 +55,21 @@
         validate: 启动时验证现有schema与你配置的hibernate是否一致，如果不一致就抛出异常，并不做更新
         -->
 
-        <mapping package="net.aoliao.web.italker.push.bean.db"
-                 class="net.aoliao.web.italker.push.bean.db.User"/>
-        <mapping package="net.aoliao.web.italker.push.bean.db"
-                 class="net.aoliao.web.italker.push.bean.db.UserFollow"/>
 
-        <mapping package="net.aoliao.web.italker.push.bean.db"
-                 class="net.aoliao.web.italker.push.bean.db.Group"/>
-        <mapping package="net.aoliao.web.italker.push.bean.db"
-                 class="net.aoliao.web.italker.push.bean.db.GroupMember"/>
-
-
-        <mapping package="net.aoliao.web.italker.push.bean.db"
-                 class="net.aoliao.web.italker.push.bean.db.Message"/>
-        <mapping package="net.aoliao.web.italker.push.bean.db"
-                 class="net.aoliao.web.italker.push.bean.db.PushHistory"/>
-        <mapping package="net.aoliao.web.italker.push.bean.db"
-                 class="net.aoliao.web.italker.push.bean.db.Apply"/>
+        <!--<mapping package="net.qiujuer.web.italker.push.bean.db"-->
+        <!--class="net.qiujuer.web.italker.push.bean.db.Group"/>-->
+        <!--<mapping package="net.qiujuer.web.italker.push.bean.db"-->
+        <!--class="net.qiujuer.web.italker.push.bean.db.GroupMember"/>-->
+        <!--<mapping package="net.qiujuer.web.italker.push.bean.db"-->
+        <!--class="net.qiujuer.web.italker.push.bean.db.User"/>-->
+        <!--<mapping package="net.qiujuer.web.italker.push.bean.db"-->
+        <!--class="net.qiujuer.web.italker.push.bean.db.UserFollow"/>-->
+        <!--<mapping package="net.qiujuer.web.italker.push.bean.db"-->
+        <!--class="net.qiujuer.web.italker.push.bean.db.Message"/>-->
+        <!--<mapping package="net.qiujuer.web.italker.push.bean.db"-->
+        <!--class="net.qiujuer.web.italker.push.bean.db.PushHistory"/>-->
+        <!--<mapping package="net.qiujuer.web.italker.push.bean.db"-->
+        <!--class="net.qiujuer.web.italker.push.bean.db.Apply"/>-->
 
     </session-factory>
 </hibernate-configuration>
