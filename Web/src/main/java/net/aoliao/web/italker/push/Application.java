@@ -2,6 +2,7 @@ package net.aoliao.web.italker.push;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
+import net.aoliao.web.italker.push.provider.AuthRequestFilter;
 import net.aoliao.web.italker.push.provider.GsonProvider;
 import net.aoliao.web.italker.push.service.AccountService;
 
@@ -17,6 +18,8 @@ public class Application extends ResourceConfig{
     public Application(){
         //注册逻辑处理的包名
         packages(AccountService.class.getPackage().getName());
+        //注册请求拦截器
+        register(AuthRequestFilter.class);
         //注册json解析器
 //        register(JacksonJsonProvider.class);
         register(GsonProvider.class);
