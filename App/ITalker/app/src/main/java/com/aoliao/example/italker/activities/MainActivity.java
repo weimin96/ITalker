@@ -1,14 +1,10 @@
-package com.aoliao.example.italker;
+package com.aoliao.example.italker.activities;
 
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -16,12 +12,7 @@ import android.widget.TextView;
 
 import com.aoliao.example.common.app.Activity;
 import com.aoliao.example.common.widget.PortraitView;
-import com.aoliao.example.italker.activities.AccountActivity;
-import com.aoliao.example.italker.fragments.assist.PermissionFragment;
-import com.aoliao.example.italker.fragments.main.ActiveFragment;
-import com.aoliao.example.italker.fragments.main.ContactFragment;
-import com.aoliao.example.italker.fragments.main.GroupFragment;
-import com.aoliao.example.italker.helper.NavHelper;
+import com.aoliao.example.italker.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.animation.GlideAnimation;

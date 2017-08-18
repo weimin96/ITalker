@@ -1,10 +1,9 @@
-package com.aoliao.example.italker.fragments.account;
+package com.aoliao.example.italker.fragments.user;
 
 
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
 
 import com.aoliao.example.common.app.Application;
 import com.aoliao.example.common.app.Fragment;
@@ -22,7 +21,6 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 import static android.app.Activity.RESULT_OK;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
 
 public class UpdateInfoFragment extends Fragment {
     @BindView(R.id.im_portrait)
