@@ -39,7 +39,7 @@ public class UserFactory {
     //更新用户信息
     public static User update(User user){
         return Hib.query(session -> {
-            session.save(user);
+            session.saveOrUpdate(user);
             return user;
         });
     }
@@ -107,7 +107,7 @@ public class UserFactory {
      * @return User
      */
     public static User register(String account, String name, String password) {
-        //出去账户首尾空格
+        //去除账户首尾空格
         account = account.trim();
         //加密
         password = encodePassword(password);
@@ -140,10 +140,7 @@ public class UserFactory {
         user.setPassword(password);
         user.setPhone(account);
         //数据库存储
-        return Hib.query(session -> {
-            session.save(user);
-            return user;
-        });
+        return update(user);
     }
 
     private static String encodePassword(String password) {
