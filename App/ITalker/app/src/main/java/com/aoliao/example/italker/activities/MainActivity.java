@@ -2,6 +2,7 @@ package com.aoliao.example.italker.activities;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.BottomNavigationView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.aoliao.example.common.app.Activity;
 import com.aoliao.example.common.widget.PortraitView;
+import com.aoliao.example.factory.persistence.Account;
 import com.aoliao.example.italker.R;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
@@ -63,6 +65,16 @@ public class MainActivity extends Activity implements BottomNavigationView.OnNav
                         this.view.setBackground(resource.getCurrent());
                     }
                 });
+    }
+
+    @Override
+    protected boolean initArgs(Bundle bundle) {
+        if (Account.isComplete()) {
+            return super.initArgs(bundle);
+        }else {
+            UserActivity.show(this);
+            return false;
+        }
     }
 
     @OnClick(R.id.im_search)

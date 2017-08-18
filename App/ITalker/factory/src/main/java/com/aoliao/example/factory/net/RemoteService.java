@@ -4,10 +4,13 @@ import com.aoliao.example.factory.model.api.RspModel;
 import com.aoliao.example.factory.model.api.account.AccountRspModel;
 import com.aoliao.example.factory.model.api.account.LoginModel;
 import com.aoliao.example.factory.model.api.account.RegisterModel;
+import com.aoliao.example.factory.model.api.account.UserUpdateModel;
+import com.aoliao.example.factory.model.card.UserCard;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 /**
@@ -41,4 +44,12 @@ public interface RemoteService {
     @POST("account/bind/{pushId}")
     Call<RspModel<AccountRspModel>> accountBind(@Path(encoded = true,value ="pushId") String pushId);
     //服务器需要接收加入到请求头里的token，在OKHttp初始化的时候全局拦截添加进来
+
+    /**
+     * 用户更新接口
+     * @param model model
+     * @return RspModel<UserCard>
+     */
+    @PUT("user")
+    Call<RspModel<UserCard>> userUpdate(@Body UserUpdateModel model);
 }
