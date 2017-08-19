@@ -136,12 +136,12 @@ public class NavHelper<T> {
      */
     public static class Tab<T> {
         public Class<?> clx;
-        public T t;
+        public T extra;
         Fragment mFragment;
 
-        public Tab(Class<?> clx, T t) {
+        public Tab(Class<?> clx, T extra) {
             this.clx = clx;
-            this.t = t;
+            this.extra = extra;
         }
     }
 }

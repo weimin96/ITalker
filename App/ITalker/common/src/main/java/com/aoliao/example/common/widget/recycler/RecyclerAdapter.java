@@ -163,7 +163,8 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
      *
      * @param dataList dataList
      */
-    public void add(T... dataList) {
+    @SafeVarargs
+    public final void add(T... dataList) {
         if (dataList != null && dataList.length > 0) {
             int startPos = dataList.length;
             Collections.addAll(mDataList, dataList);
@@ -219,7 +220,7 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
     public abstract static class ViewHolder<T> extends RecyclerView.ViewHolder {
         private AdapterCallback<T> mCallback;
         private Unbinder mUnbinder;
-        T mData;
+        protected T mData;
 
         public ViewHolder(View itemView) {
             super(itemView);

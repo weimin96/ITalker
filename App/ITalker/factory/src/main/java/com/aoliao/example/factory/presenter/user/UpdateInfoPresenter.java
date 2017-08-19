@@ -31,9 +31,9 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
     @Override
     public void update(final String photoFilePath, final String desc, final boolean isMan) {
         start();
-        UpdateInfoContract.View view = getView();
+        final UpdateInfoContract.View view = getView();
         if (TextUtils.isEmpty(photoFilePath) || TextUtils.isEmpty(desc)) {
-            Application.showToast(R.string.data_account_update_invalid_parameter);
+            view.showError(R.string.data_account_update_invalid_parameter);
         } else {
             Factory.runOnAsync(new Runnable() {
                 @Override
@@ -41,7 +41,7 @@ public class UpdateInfoPresenter extends BasePresenter<UpdateInfoContract.View>
                     String url = UploadHelper.uploadPortrait(photoFilePath);
                     if (TextUtils.isEmpty(url)) {
                         //上传失败
-                        Application.showToast(R.string.data_upload_error);
+                        view.showError(R.string.data_upload_error);
                     } else {
                         //构建Model
                         UserUpdateModel model = new UserUpdateModel("", url, desc, isMan ? User.SEX_MAN : User.SEX_WOMAN);

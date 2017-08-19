@@ -25,14 +25,14 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!--个推的广播注册-->
+        <!-- 个推的广播注册 -->
         <receiver
             android:name=".MessageReceiver"
             android:enabled="true"
             android:exported="true"
             android:permission="1000">
             <intent-filter>
-                <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}" />
+                <action android:name="com.igexin.sdk.action.${GETUI_APP_ID}"/>
             </intent-filter>
         </receiver>
 
@@ -62,6 +62,12 @@
             android:name=".activities.UserActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Account">
+        </activity>
+        <activity
+            android:name=".activities.SearchActivity"
+            android:label="@string/title_search"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.TransStatusBar">
         </activity>
     </application>
 

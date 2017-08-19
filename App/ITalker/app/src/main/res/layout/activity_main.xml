@@ -74,6 +74,7 @@
         android:padding="@dimen/len_20"
         android:src="@drawable/ic_group_add"
         android:tint="@color/white"
+        android:translationY="@dimen/len_76"
         app:gBackgroundColor="@color/colorAccent"
         app:layout_anchor="@id/lay_container"
         app:layout_anchorGravity="bottom|end"/>
@@ -90,7 +91,8 @@
         app:itemIconTint="@color/text_nav"
         app:itemTextColor="@color/text_nav"
         app:menu="@menu/navigation_items"
-        tools:targetApi="lollipop">
+        tools:targetApi="lollipop"
+        tools:visibility="invisible">
 
     </android.support.design.widget.BottomNavigationView>
 
