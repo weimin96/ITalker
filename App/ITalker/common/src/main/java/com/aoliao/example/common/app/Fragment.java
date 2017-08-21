@@ -21,6 +21,7 @@ public abstract class Fragment extends android.support.v4.app.Fragment {
     protected View mRoot;
     protected Unbinder mRootUnbinder;
     protected PlaceHolderView mPlaceHolderView;
+    protected boolean isFirstInitData=true;
 
     @Override
     public void onAttach(Context context) {
@@ -51,6 +52,10 @@ public abstract class Fragment extends android.support.v4.app.Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (isFirstInitData){
+            isFirstInitData=false;
+            onFirstInit();
+        }
         initData();
     }
 
@@ -71,6 +76,8 @@ public abstract class Fragment extends android.support.v4.app.Fragment {
     }
 
     protected void initData(){}
+
+    protected void onFirstInit(){}
 
     /**
      * 返回按键触发

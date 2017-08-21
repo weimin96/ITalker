@@ -36,4 +36,11 @@ public abstract class ToolbarActivity extends Activity {
             actionBar.setHomeButtonEnabled(true);
         }
     }
+
+    //TODO 待调整
+    @Override
+    public boolean onSupportNavigateUp() {
+        finish();
+        return super.onSupportNavigateUp();
+    }
 }

@@ -94,6 +94,12 @@ public class MainActivity extends Activity implements BottomNavigationView.OnNav
         Menu menu=mNavigation.getMenu();
         menu.performIdentifierAction(R.id.action_home,0);
 
+        mPortrait.setup(Glide.with(this),Account.getUser());
+    }
+
+    @OnClick(R.id.im_portrait)
+    void onPortrait(){
+        PersonalActivity.show(this,Account.getUserId());
     }
 
 

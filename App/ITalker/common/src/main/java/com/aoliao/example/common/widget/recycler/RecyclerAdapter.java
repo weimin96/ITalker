@@ -108,6 +108,14 @@ public abstract class RecyclerAdapter<T> extends RecyclerView.Adapter<RecyclerAd
         return mDataList.size();
     }
 
+    /**
+     * 返回整个集合
+     * @return List<T>
+     */
+    public List<T> getItems(){
+        return mDataList;
+    }
+
     @Override
     public void onClick(View v) {
         if (mListener != null) {

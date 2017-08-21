@@ -18,6 +18,7 @@ import com.aoliao.example.factory.presenter.contact.FollowPresenter;
 import com.aoliao.example.factory.presenter.search.SearchContract;
 import com.aoliao.example.factory.presenter.search.SearchUserPresenter;
 import com.aoliao.example.italker.R;
+import com.aoliao.example.italker.activities.PersonalActivity;
 import com.aoliao.example.italker.activities.SearchActivity;
 import com.bumptech.glide.Glide;
 
@@ -121,12 +122,14 @@ public class SearchUserFragment extends PresenterFragment<SearchContract.Present
 
         @Override
         protected void onBind(UserCard card) {
-            Glide.with(SearchUserFragment.this)
-                    .load(card.getPortrait())
-                    .centerCrop()
-                    .into(mPortraitView);
+            mPortraitView.setup( Glide.with(SearchUserFragment.this),card);
             mName.setText(card.getName());
             mFollow.setEnabled(!card.isFollow());
+        }
+
+        @OnClick(R.id.im_portrait)
+        void onPortraitClick() {
+            PersonalActivity.show(getContext(),mData.getId());
         }
 
         @OnClick(R.id.im_follow)

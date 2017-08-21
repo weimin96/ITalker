@@ -1,5 +1,6 @@
 package com.aoliao.example.factory.model.card;
 
+import com.aoliao.example.factory.model.Author;
 import com.aoliao.example.factory.model.db.User;
 
 import java.util.Date;
@@ -9,7 +10,7 @@ import java.util.Date;
  * @version 2017/8/18
  */
 
-public class UserCard {
+public class UserCard implements Author{
     private String id;
     private String name;
     private String phone;
