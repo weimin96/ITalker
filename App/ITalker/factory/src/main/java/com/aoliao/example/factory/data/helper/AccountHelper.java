@@ -74,7 +74,7 @@ public class AccountHelper {
                 User user = accountRspModel.getUser();
                 //回调callback 数据加载成功
                 //保存到数据库中
-                user.save();
+                DbHelper.save(User.class,user);
                 //保存自己的信息到xml中，初始化Account数据，用于判断是否已经登录
                 Account.login(accountRspModel);
                 //如果已经绑定设备
