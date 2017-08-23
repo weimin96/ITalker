@@ -3,12 +3,11 @@ package com.aoliao.example.factory.presenter.user;
 import android.support.annotation.StringRes;
 import android.text.TextUtils;
 
-import com.aoliao.example.common.app.Application;
 import com.aoliao.example.factory.Factory;
 import com.aoliao.example.factory.R;
 import com.aoliao.example.factory.data.DataSource;
 import com.aoliao.example.factory.data.helper.UserHelper;
-import com.aoliao.example.factory.model.api.account.UserUpdateModel;
+import com.aoliao.example.factory.model.api.user.UserUpdateModel;
 import com.aoliao.example.factory.model.card.UserCard;
 import com.aoliao.example.factory.model.db.User;
 import com.aoliao.example.factory.net.UploadHelper;

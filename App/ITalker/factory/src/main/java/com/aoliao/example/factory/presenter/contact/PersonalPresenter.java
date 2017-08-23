@@ -33,13 +33,13 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
                     String id = view.getUserId();
                     User user= UserHelper.searchFirstOfNet(id);
                     view.onLoadDone(user);
-                    onLoaded(view,user);
+                    onLoaded(user);
                 }
             }
         });
     }
 
-    private void onLoaded(final PersonalContract.View view, final User user) {
+    private void onLoaded( final User user) {
         this.user = user;
         // 是否就是我自己
         final boolean isSelf = user.getId().equalsIgnoreCase(Account.getUserId());
@@ -52,6 +52,9 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
         Run.onUiAsync(new Action() {
             @Override
             public void call() {
+                final PersonalContract.View view=getView();
+                if (view==null)
+                    return;
                 view.onLoadDone(user);
                 view.setFollowStatus(isFollow);
                 view.allowSayHello(allowSayHello);

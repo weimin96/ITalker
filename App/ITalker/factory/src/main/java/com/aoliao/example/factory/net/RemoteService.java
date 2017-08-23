@@ -4,7 +4,9 @@ import com.aoliao.example.factory.model.api.RspModel;
 import com.aoliao.example.factory.model.api.account.AccountRspModel;
 import com.aoliao.example.factory.model.api.account.LoginModel;
 import com.aoliao.example.factory.model.api.account.RegisterModel;
-import com.aoliao.example.factory.model.api.account.UserUpdateModel;
+import com.aoliao.example.factory.model.api.message.MsgCreateModel;
+import com.aoliao.example.factory.model.api.user.UserUpdateModel;
+import com.aoliao.example.factory.model.card.MessageCard;
 import com.aoliao.example.factory.model.card.UserCard;
 
 import java.util.List;
@@ -79,6 +81,11 @@ public interface RemoteService {
     @GET("user/contact")
     Call<RspModel<List<UserCard>>> userContacts();
 
+    //查询某人信息
     @GET("user/{userId}")
     Call<RspModel<UserCard>> userFind(@Path("userId") String userId);
+
+    //发送消息的接口
+    @POST("msg")
+    Call<RspModel<MessageCard>> msgPush(@Body MsgCreateModel model);
 }

@@ -1,22 +1,18 @@
 package com.aoliao.example.factory.data.helper;
 
-import android.net.Network;
-
 import com.aoliao.example.factory.Factory;
 import com.aoliao.example.factory.R;
 import com.aoliao.example.factory.data.DataSource;
 import com.aoliao.example.factory.model.api.RspModel;
-import com.aoliao.example.factory.model.api.account.UserUpdateModel;
+import com.aoliao.example.factory.model.api.user.UserUpdateModel;
 import com.aoliao.example.factory.model.card.UserCard;
 import com.aoliao.example.factory.model.db.User;
 import com.aoliao.example.factory.model.db.User_Table;
 import com.aoliao.example.factory.net.NetWork;
 import com.aoliao.example.factory.net.RemoteService;
-import com.aoliao.example.factory.presenter.contact.FollowPresenter;
 import com.aoliao.example.utils.CollectionUtil;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;

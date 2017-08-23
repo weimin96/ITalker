@@ -1,4 +1,4 @@
-package com.aoliao.example.factory.model.api.account;
+package com.aoliao.example.factory.model.api.user;
 
 /**
  * @author qiujuer Email:qiujuer@live.cn

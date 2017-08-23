@@ -81,11 +81,4 @@ public class PushModel {
         // 消息生成时间
         public Date createAt;
     }
-
-    @Override
-    public String toString() {
-        return "PushModel{" +
-                "entities=" + entities +
-                '}';
-    }
 }
