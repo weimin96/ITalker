@@ -124,7 +124,7 @@ public class MainActivity extends Activity implements BottomNavigationView.OnNav
     void onActionClick() {
         //判断当前界面是群还是联系人界面
         if (Objects.equals(mNavHelper.getCurrentTab().extra, R.string.title_group)) {
-            //TODO
+            GroupCreateActivity.show(this);
         } else {
             //打开添加用户界面
             SearchActivity.show(this, SearchActivity.TYPE_USER);

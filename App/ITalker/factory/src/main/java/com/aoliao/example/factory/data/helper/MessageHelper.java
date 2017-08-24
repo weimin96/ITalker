@@ -1,14 +1,12 @@
 package com.aoliao.example.factory.data.helper;
 
-import android.net.Network;
-
 import com.aoliao.example.factory.Factory;
 import com.aoliao.example.factory.model.api.RspModel;
 import com.aoliao.example.factory.model.api.message.MsgCreateModel;
 import com.aoliao.example.factory.model.card.MessageCard;
 import com.aoliao.example.factory.model.db.Message;
 import com.aoliao.example.factory.model.db.Message_Table;
-import com.aoliao.example.factory.net.NetWork;
+import com.aoliao.example.factory.net.Network;
 import com.aoliao.example.factory.net.RemoteService;
 import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
@@ -50,7 +48,7 @@ public class MessageHelper {
                 Factory.getMessageCenter().dispatch(card);
 
                 // 直接发送, 进行网络调度
-                RemoteService service = NetWork.remote();
+                RemoteService service = Network.remote();
                 service.msgPush(model).enqueue(new Callback<RspModel<MessageCard>>() {
                     @Override
                     public void onResponse(Call<RspModel<MessageCard>> call, Response<RspModel<MessageCard>> response) {

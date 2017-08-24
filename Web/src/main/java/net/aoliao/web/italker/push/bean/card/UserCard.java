@@ -3,6 +3,7 @@ package net.aoliao.web.italker.push.bean.card;
 import com.google.gson.annotations.Expose;
 
 import net.aoliao.web.italker.push.bean.db.User;
+import net.aoliao.web.italker.push.utils.Hib;
 
 import java.time.LocalDateTime;
 
@@ -63,10 +64,13 @@ public class UserCard {
         this.sex = user.getSex();
         this.modifyAt = user.getUpdateAt();
 
-        // TODO 得到关注人和粉丝的数量
         // user.getFollowers().size()
         // 懒加载会报错，因为没有Session
-
+        Hib.queryOnly(session -> {
+            session.load(user,user.getId());
+            follows=user.getFollowers().size();
+            following=user.getFollowing().size();
+        });
     }
 
     public void setId(String id) {

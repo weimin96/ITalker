@@ -78,6 +78,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.TransStatusBar">
         </activity>
+        <activity
+            android:name=".activities.GroupCreateActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.Group.Create">
+        </activity>
     </application>
 
 </manifest>

@@ -80,8 +80,9 @@ public class UserFactory {
             return user;
         } else {
             //给之前设备推送一条退出消息
-            if (Strings.isNullOrEmpty(user.getPushId())) {
-                //TODO 推送一条退出消息
+            if (!Strings.isNullOrEmpty(user.getPushId())) {
+                //推送一条退出消息
+                PushFactory.pushLogout(user,user.getPushId());
             }
             //更新设备id
             user.setPushId(pushId);

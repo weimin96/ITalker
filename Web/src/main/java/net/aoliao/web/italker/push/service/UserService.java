@@ -7,6 +7,7 @@ import net.aoliao.web.italker.push.bean.api.base.ResponseModel;
 import net.aoliao.web.italker.push.bean.api.user.UpdateInfoModel;
 import net.aoliao.web.italker.push.bean.card.UserCard;
 import net.aoliao.web.italker.push.bean.db.User;
+import net.aoliao.web.italker.push.factory.PushFactory;
 import net.aoliao.web.italker.push.factory.UserFactory;
 import net.aoliao.web.italker.push.utils.PushDispatcher;
 
@@ -96,7 +97,8 @@ public class UserService extends BaseService {
             //关注失败服务器异常
             return ResponseModel.buildServiceError();
         }
-        //TODO 通知我关注的人
+        //通知我关注的人
+        PushFactory.pushFollow(followUser,new UserCard(self));
         return ResponseModel.buildOk(new UserCard(followUser, true));
     }
 

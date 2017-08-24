@@ -5,7 +5,6 @@ import android.text.TextUtils;
 import com.aoliao.example.common.Common;
 import com.aoliao.example.factory.Factory;
 import com.aoliao.example.factory.persistence.Account;
-import com.google.gson.Gson;
 
 import java.io.IOException;
 
@@ -16,23 +15,21 @@ import okhttp3.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-import static android.os.Build.VERSION_CODES.N;
-
 /**
  * @author 你的奥利奥
  * @version 2017/8/17
  */
 
-public class NetWork {
+public class Network {
 
-    private static NetWork instance;
+    private static Network instance;
     private Retrofit retrofit;
 
     static {
-        instance = new NetWork();
+        instance = new Network();
     }
 
-    private NetWork() {
+    private Network() {
     }
 
     //构建一个retrofit
@@ -77,6 +74,6 @@ public class NetWork {
      * @return RemoteService
      */
     public static RemoteService remote() {
-        return NetWork.getRetrofit().create(RemoteService.class);
+        return Network.getRetrofit().create(RemoteService.class);
     }
 }

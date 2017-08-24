@@ -8,8 +8,10 @@ import com.aoliao.example.factory.model.api.user.UserUpdateModel;
 import com.aoliao.example.factory.model.card.UserCard;
 import com.aoliao.example.factory.model.db.User;
 import com.aoliao.example.factory.model.db.User_Table;
-import com.aoliao.example.factory.net.NetWork;
+import com.aoliao.example.factory.model.db.view.UserSampleModel;
+import com.aoliao.example.factory.net.Network;
 import com.aoliao.example.factory.net.RemoteService;
+import com.aoliao.example.factory.persistence.Account;
 import com.aoliao.example.utils.CollectionUtil;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -28,7 +30,7 @@ public class UserHelper {
     //更新用户信息
     public static void update(UserUpdateModel model, final DataSource.Callback<UserCard> callback) {
         //调用retrofit对我们的网络请求接口做代理
-        RemoteService service = NetWork.remote();
+        RemoteService service = Network.remote();
         //得到一个Call
         Call<RspModel<UserCard>> call = service.userUpdate(model);
         call.enqueue(new Callback<RspModel<UserCard>>() {
@@ -57,7 +59,7 @@ public class UserHelper {
 
     //搜索用户
     public static Call search(String name, final DataSource.Callback<List<UserCard>> callback) {
-        RemoteService service = NetWork.remote();
+        RemoteService service = Network.remote();
         Call<RspModel<List<UserCard>>> call = service.userSearch(name);
         call.enqueue(new Callback<RspModel<List<UserCard>>>() {
             @Override
@@ -80,7 +82,7 @@ public class UserHelper {
     }
 
     public static void follow(String id, final DataSource.Callback<UserCard> callback) {
-        RemoteService service = NetWork.remote();
+        RemoteService service = Network.remote();
         Call<RspModel<UserCard>> call = service.userFollow(id);
         call.enqueue(new Callback<RspModel<UserCard>>() {
             @Override
@@ -109,7 +111,7 @@ public class UserHelper {
     //并通过数据库观察者进行通知界面更新
     //界面更新的时候进行对比，然后差异对比
     public static void refreshContacts() {
-        RemoteService service = NetWork.remote();
+        RemoteService service = Network.remote();
         Call<RspModel<List<UserCard>>> call = service.userContacts();
         call.enqueue(new Callback<RspModel<List<UserCard>>>() {
             @Override
@@ -142,7 +144,7 @@ public class UserHelper {
 
     public static User findFromNet(String id) {
 
-        RemoteService remoteService = NetWork.remote();
+        RemoteService remoteService = Network.remote();
         try {
             Response<RspModel<UserCard>> response = remoteService.userFind(id).execute();
             UserCard userCard = response.body().getResult();
@@ -179,5 +181,34 @@ public class UserHelper {
             return findFromLocal(id);
         }
         return user;
+    }
+
+    /**
+     * 获取联系人
+     */
+    public static List<User> getContact() {
+        return SQLite.select()
+                .from(User.class)
+                .where(User_Table.isFollow.eq(true))
+                .and(User_Table.id.notEq(Account.getUserId()))
+                .orderBy(User_Table.name, true)
+                .limit(100)
+                .queryList();
+    }
+
+
+    // 获取一个联系人列表，
+    // 但是是一个简单的数据的
+    public static List<UserSampleModel> getSampleContact() {
+        //"select id = ??";
+        //"select User_id = ??";
+        return SQLite.select(User_Table.id.withTable().as("id"),
+                User_Table.name.withTable().as("name"),
+                User_Table.portrait.withTable().as("portrait"))
+                .from(User.class)
+                .where(User_Table.isFollow.eq(true))
+                .and(User_Table.id.notEq(Account.getUserId()))
+                .orderBy(User_Table.name, true)
+                .queryCustomList(UserSampleModel.class);
     }
 }

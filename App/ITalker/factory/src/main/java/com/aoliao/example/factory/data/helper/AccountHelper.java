@@ -10,7 +10,7 @@ import com.aoliao.example.factory.model.api.account.AccountRspModel;
 import com.aoliao.example.factory.model.api.account.LoginModel;
 import com.aoliao.example.factory.model.api.account.RegisterModel;
 import com.aoliao.example.factory.model.db.User;
-import com.aoliao.example.factory.net.NetWork;
+import com.aoliao.example.factory.net.Network;
 import com.aoliao.example.factory.net.RemoteService;
 import com.aoliao.example.factory.persistence.Account;
 
@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class AccountHelper {
     public static void register(RegisterModel registerModel, final DataSource.Callback<User> callback) {
         //调用retrofit对我们的网络请求接口做代理
-        RemoteService service = NetWork.remote();
+        RemoteService service = Network.remote();
         //得到一个Call
         Call<RspModel<AccountRspModel>> call = service.accountRegister(registerModel);
         call.enqueue(new AccountRspCallback(callback));
@@ -34,7 +34,7 @@ public class AccountHelper {
 
     public static void login(LoginModel loginModel, final DataSource.Callback<User> callback) {
         //调用retrofit对我们的网络请求接口做代理
-        RemoteService service = NetWork.remote();
+        RemoteService service = Network.remote();
         //得到一个Call
         Call<RspModel<AccountRspModel>> call = service.accountLogin(loginModel);
         call.enqueue(new AccountRspCallback(callback));
@@ -47,7 +47,7 @@ public class AccountHelper {
             return;
         }
         // 调用Retrofit对我们的网络请求接口做代理
-        RemoteService service = NetWork.remote();
+        RemoteService service = Network.remote();
         Call<RspModel<AccountRspModel>> call = service.accountBind(pushId);
         call.enqueue(new AccountRspCallback(callback));
     }

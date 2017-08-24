@@ -1,5 +1,7 @@
 package net.aoliao.web.italker.push.bean.db;
 
+import net.aoliao.web.italker.push.bean.api.group.GroupCreateModel;
+
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -68,6 +70,17 @@ public class Group {
     private User owner;
     @Column(nullable = false, updatable = false, insertable = false)
     private String ownerId;
+
+    public Group() {
+
+    }
+
+    public Group(User owner, GroupCreateModel model) {
+        this.owner = owner;
+        this.name = model.getName();
+        this.description = model.getDesc();
+        this.picture = model.getPicture();
+    }
 
 
     public String getId() {
