@@ -6,6 +6,7 @@ import com.aoliao.example.factory.R;
 import com.aoliao.example.factory.data.DataSource;
 import com.aoliao.example.factory.model.api.RspModel;
 import com.aoliao.example.factory.model.api.group.GroupCreateModel;
+import com.aoliao.example.factory.model.api.group.GroupMemberAddModel;
 import com.aoliao.example.factory.model.card.GroupCard;
 import com.aoliao.example.factory.model.card.GroupMemberCard;
 import com.aoliao.example.factory.model.db.Group;
@@ -17,6 +18,7 @@ import com.aoliao.example.factory.model.db.User_Table;
 import com.aoliao.example.factory.model.db.view.MemberUserModel;
 import com.aoliao.example.factory.net.Network;
 import com.aoliao.example.factory.net.RemoteService;
+import com.aoliao.example.factory.presenter.group.GroupMemberAddPresenter;
 import com.raizlabs.android.dbflow.sql.language.Join;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -183,7 +185,7 @@ public class GroupHelper {
 //     关联查询一个用户和群成员的表，返回一个MemberUserModel表的集合
     public static List<MemberUserModel> getMemberUsers(String groupId, int size) {
         return SQLite.select(GroupMember_Table.alias.withTable().as("alias"),
-                User_Table.id.withTable().as("id"),
+                User_Table.id.withTable().as("userId"),
                 User_Table.name.withTable().as("name"),
                 User_Table.portrait.withTable().as("portrait"))
                 .from(GroupMember.class)
@@ -193,5 +195,32 @@ public class GroupHelper {
                 .orderBy(GroupMember_Table.user_id, true)
                 .limit(size)
                 .queryCustomList(MemberUserModel.class);
+    }
+
+    // 网络请求进行成员添加
+    public static void addMembers(String groupId, GroupMemberAddModel model, final DataSource.Callback<List<GroupMemberCard>> callback) {
+        RemoteService service = Network.remote();
+        service.groupMemberAdd(groupId, model)
+                .enqueue(new Callback<RspModel<List<GroupMemberCard>>>() {
+                    @Override
+                    public void onResponse(Call<RspModel<List<GroupMemberCard>>> call, Response<RspModel<List<GroupMemberCard>>> response) {
+                        RspModel<List<GroupMemberCard>> rspModel = response.body();
+                        if (rspModel.success()) {
+                            List<GroupMemberCard> memberCards = rspModel.getResult();
+                            if (memberCards != null && memberCards.size() > 0) {
+                                // 进行调度显示
+                                Factory.getGroupCenter().dispatch(memberCards.toArray(new GroupMemberCard[0]));
+                                callback.onDataLoaded(memberCards);
+                            }
+                        } else {
+                            Factory.decodeRspCode(rspModel, null);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<RspModel<List<GroupMemberCard>>> call, Throwable t) {
+                        callback.onDataNotAvailable(R.string.data_network_error);
+                    }
+                });
     }
 }

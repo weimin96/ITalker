@@ -36,11 +36,6 @@ public class ChatUserFragment extends ChatFragment<User> implements ChatContract
     }
 
     @Override
-    protected int getContentLayoutId() {
-        return R.layout.fragment_chat_user;
-    }
-
-    @Override
     protected void initToolbar() {
         super.initToolbar();
 
@@ -58,6 +53,11 @@ public class ChatUserFragment extends ChatFragment<User> implements ChatContract
 
         // 拿到菜单Icon
         mUserInfoMenuItem = toolbar.getMenu().findItem(R.id.action_person);
+    }
+
+    @Override
+    protected int getHeaderLayoutId() {
+        return R.layout.lay_chat_header_user;
     }
 
     @Override

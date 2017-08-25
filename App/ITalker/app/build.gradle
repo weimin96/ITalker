@@ -54,6 +54,9 @@ dependencies {
     // 个推
     compile "com.getui:sdk:$rootProject.ext.getuiVersion"
 
+    //空气面板
+    compile "net.qiujuer.widget:airpanel:$rootProject.ext.airpanelVersion"
+
     compile 'com.android.support:support-v4:25.3.1'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     testCompile 'junit:junit:4.12'

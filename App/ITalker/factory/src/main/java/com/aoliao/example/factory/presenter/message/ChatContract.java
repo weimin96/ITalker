@@ -3,7 +3,10 @@ package com.aoliao.example.factory.presenter.message;
 import com.aoliao.example.factory.model.db.Group;
 import com.aoliao.example.factory.model.db.Message;
 import com.aoliao.example.factory.model.db.User;
+import com.aoliao.example.factory.model.db.view.MemberUserModel;
 import com.aoliao.example.factory.presenter.BaseContract;
+
+import java.util.List;
 
 /**
  * @author 你的奥利奥
@@ -38,6 +41,9 @@ public interface ChatContract {
 
     // 群聊天的界面
     interface GroupView extends View<Group> {
+        void showAdminOption(boolean isAdmin);
 
+        //初始化成员信息
+        void onInitGroupMembers(List<MemberUserModel> members,long moreCount);
     }
 }
