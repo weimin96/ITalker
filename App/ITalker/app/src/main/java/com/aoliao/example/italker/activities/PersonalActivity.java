@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.v4.content.res.ResourcesCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.text.TextUtils;
 import android.view.Menu;
@@ -16,9 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.aoliao.example.common.app.PresenterToolbarActivity;
-import com.aoliao.example.common.app.ToolbarActivity;
 import com.aoliao.example.common.widget.PortraitView;
+import com.aoliao.example.factory.Factory;
 import com.aoliao.example.factory.model.db.User;
+import com.aoliao.example.factory.persistence.Account;
 import com.aoliao.example.factory.presenter.contact.PersonalContract;
 import com.aoliao.example.factory.presenter.contact.PersonalPresenter;
 import com.aoliao.example.italker.R;
@@ -33,6 +33,8 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
         implements PersonalContract.View {
     private static final String BOUND_KEY_ID = "BOUND_KEY_ID";
     private String userId;
+    private boolean isAllowSayHello;
+    private boolean isAllowLogout;
 
     @BindView(R.id.im_header)
     ImageView mHeader;
@@ -100,12 +102,16 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
     }
 
     @OnClick(R.id.btn_say_hello)
-    void onSayHelloClick() {
+    void onSayHelloOrLogoutClick() {
         // 发起聊天的点击
         User user = mPresenter.getUserPersonal();
         if (user == null)
             return;
-        MessageActivity.show(this, user);
+        if (user.getId().equals(Account.getUserId())) {
+            Factory.logout();
+        } else {
+            MessageActivity.show(this, user);
+        }
     }
 
     /**
@@ -127,7 +133,6 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
     }
 
 
-
     @Override
     public String getUserId() {
         return userId;
@@ -137,6 +142,11 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
     public void onLoadDone(User user) {
         if (user == null)
             return;
+        Glide.with(this)
+                .load(user.getPortrait())
+                .asBitmap()
+                .centerCrop()
+                .into(mHeader);
         mPortrait.setup(Glide.with(this), user);
         mName.setText(user.getName());
         mDesc.setText(user.getDesc());
@@ -146,8 +156,13 @@ public class PersonalActivity extends PresenterToolbarActivity<PersonalContract.
     }
 
     @Override
-    public void allowSayHello(boolean isAllow) {
-        mSayHello.setVisibility(isAllow ? View.VISIBLE : View.GONE);
+    public void allowSayHelloOrLogout(boolean isAllowSayHello, boolean isAllowLogout) {
+        mSayHello.setVisibility(isAllowLogout||isAllowSayHello ? View.VISIBLE : View.GONE);
+        if (isAllowLogout){
+            mSayHello.setText(R.string.btn_logout);
+        }else if (isAllowSayHello){
+            mSayHello.setText(R.string.btn_send_start);
+        }
     }
 
     @Override

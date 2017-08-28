@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.aoliao.example.common.app.Activity;
 import com.aoliao.example.common.app.Fragment;
+import com.aoliao.example.italker.App;
 import com.aoliao.example.italker.R;
 import com.aoliao.example.italker.fragments.account.AccountTrigger;
 import com.aoliao.example.italker.fragments.account.LoginFragment;
@@ -58,15 +59,15 @@ public class AccountActivity extends Activity implements AccountTrigger {
         Glide.with(this)
                 .load(R.drawable.bg_src_tianjin)
                 .centerCrop()
-                .into(new ViewTarget<ImageView,GlideDrawable>(mBg) {
+                .into(new ViewTarget<ImageView, GlideDrawable>(mBg) {
                     @Override
                     public void onResourceReady(GlideDrawable resource, GlideAnimation<? super GlideDrawable> glideAnimation) {
                         //拿到glide当前的drawable
-                        Drawable drawable=resource.getCurrent();
+                        Drawable drawable = resource.getCurrent();
                         //使用适配类进行包装
-                        drawable= DrawableCompat.wrap(drawable);
+                        drawable = DrawableCompat.wrap(drawable);
                         //设置着色效果和颜色
-                        drawable.setColorFilter(UiCompat.getColor(getResources(),R.color.colorAccent),
+                        drawable.setColorFilter(UiCompat.getColor(getResources(), R.color.colorAccent),
                                 PorterDuff.Mode.SCREEN);//蒙版
                         //设置给imageView
                         this.view.setImageDrawable(drawable);
@@ -84,10 +85,10 @@ public class AccountActivity extends Activity implements AccountTrigger {
             }
             fragment = mRegisterFragment;
         } else {
-            fragment=mLoginFragment;
+            fragment = mLoginFragment;
         }
         //重新赋值当前的fragment
-        mCurFragment=fragment;
+        mCurFragment = fragment;
         //切换显示
         getSupportFragmentManager()
                 .beginTransaction()

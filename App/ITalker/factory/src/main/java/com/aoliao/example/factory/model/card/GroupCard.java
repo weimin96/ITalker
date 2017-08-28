@@ -2,6 +2,7 @@ package com.aoliao.example.factory.model.card;
 
 import com.aoliao.example.factory.model.db.Group;
 import com.aoliao.example.factory.model.db.User;
+import com.aoliao.example.factory.persistence.Account;
 
 import java.util.Date;
 
@@ -103,6 +104,7 @@ public class GroupCard {
         group.setJoinAt(joinAt);
         group.setModifyAt(modifyAt);
         group.setOwner(owner);
+        group.setAccount(Account.getUser());
         return group;
     }
 }

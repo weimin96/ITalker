@@ -39,6 +39,9 @@ public class Group extends BaseDbModel<Group> implements Serializable {
     @ForeignKey(tableClass = User.class, stubbedRelationship = true)
     private User owner;// 创建者外键
 
+    @ForeignKey(tableClass = User.class, stubbedRelationship = true)
+    private User account;// 当前用户
+
 
     public Object holder; // 预留字段，用于界面显示
 
@@ -104,6 +107,14 @@ public class Group extends BaseDbModel<Group> implements Serializable {
 
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+
+    public User getAccount() {
+        return account;
+    }
+
+    public void setAccount(User account) {
+        this.account = account;
     }
 
     @Override

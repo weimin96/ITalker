@@ -47,6 +47,25 @@ public class Account {
                 .apply();
     }
 
+    //清除XML文件数据
+    private static void setNull(Context context) {
+        //获取数据持久化的SP
+        SharedPreferences sp = context.getSharedPreferences(Account.class.getName(),
+                Context.MODE_PRIVATE);
+        //存储数据
+        sp.edit().putBoolean(KEY_IS_BIND, false)
+                .putString(KEY_TOKEN, null)
+                .putString(KEY_USER_ID, null)
+                .putString(KEY_ACCOUNT, null)
+                .apply();
+    }
+
+    //登出
+    public static void logout(){
+        setNull(Factory.app());
+        load(Factory.app());
+    }
+
     //进行数据加载
     public static void load(Context context) {
         SharedPreferences sp = context.getSharedPreferences(Account.class.getName(),

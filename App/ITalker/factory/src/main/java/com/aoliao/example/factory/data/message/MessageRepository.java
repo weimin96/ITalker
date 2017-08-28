@@ -3,9 +3,9 @@ package com.aoliao.example.factory.data.message;
 import android.support.annotation.NonNull;
 
 import com.aoliao.example.factory.data.BaseDbRepository;
-import com.aoliao.example.factory.data.DataSource;
 import com.aoliao.example.factory.model.db.Message;
 import com.aoliao.example.factory.model.db.Message_Table;
+import com.aoliao.example.factory.persistence.Account;
 import com.raizlabs.android.dbflow.sql.language.OperatorGroup;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
@@ -45,14 +45,18 @@ public class MessageRepository extends BaseDbRepository<Message> implements Mess
     @Override
     public void load(SucceedCallback<List<Message>> callback) {
         super.load(callback);
+        //查找消息，与你聊天的人（receiverId）不是发送者就是接收者
         //(sender_id == receiverId and group_id == null)
         // or (receiver_id==receiverId)
         SQLite.select()
                 .from(Message.class)
                 .where(OperatorGroup.clause()
-                        .and(Message_Table.sender_id.eq(receiverId))
-                        .and(Message_Table.group_id.isNull()))
-                .or(Message_Table.receiver_id.eq(receiverId))
+                        .and(Message_Table.sender_id.eq(receiverId))// 这条消息的发送者是对方
+                        .and(Message_Table.group_id.isNull())       // 不是群
+                        .and(Message_Table.account_id.eq(Account.getUserId())))
+                .or(OperatorGroup.clause()
+                        .and(Message_Table.receiver_id.eq(receiverId))
+                        .and(Message_Table.account_id.eq(Account.getUserId())))
                 .orderBy(Message_Table.createAt, false)
                 .limit(30)
                 .async()

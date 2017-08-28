@@ -81,8 +81,15 @@ public class UserHelper {
         return call;
     }
 
+    /**
+     * 关注某人
+     *
+     * @param id       被关注人的id
+     * @param callback callback
+     */
     public static void follow(String id, final DataSource.Callback<UserCard> callback) {
         RemoteService service = Network.remote();
+        //网络请求关注某人
         Call<RspModel<UserCard>> call = service.userFollow(id);
         call.enqueue(new Callback<RspModel<UserCard>>() {
             @Override
@@ -92,7 +99,6 @@ public class UserHelper {
                     UserCard userCard = rspModel.getResult();
                     //唤起进行保存的操作
                     Factory.getUserCenter().dispatch(userCard);
-                    //TODO 通知联系人列表刷新
                     //返回数据
                     callback.onDataLoaded(userCard);
                 } else {
@@ -118,11 +124,11 @@ public class UserHelper {
             public void onResponse(Call<RspModel<List<UserCard>>> call, Response<RspModel<List<UserCard>>> response) {
                 RspModel<List<UserCard>> rspModel = response.body();
                 if (rspModel.success()) {
-                    List<UserCard> cards=rspModel.getResult();
-                    if (cards==null||cards.size()==0)
+                    List<UserCard> cards = rspModel.getResult();
+                    if (cards == null || cards.size() == 0)
                         return;
                     //唤起进行保存的操作
-                    Factory.getUserCenter().dispatch(CollectionUtil.toArray(cards,UserCard.class));
+                    Factory.getUserCenter().dispatch(CollectionUtil.toArray(cards, UserCard.class));
                 } else {
                     Factory.decodeRspCode(rspModel, null);
                 }

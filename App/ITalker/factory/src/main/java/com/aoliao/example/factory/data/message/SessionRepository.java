@@ -3,9 +3,9 @@ package com.aoliao.example.factory.data.message;
 import android.support.annotation.NonNull;
 
 import com.aoliao.example.factory.data.BaseDbRepository;
-import com.aoliao.example.factory.data.DataSource;
 import com.aoliao.example.factory.model.db.Session;
 import com.aoliao.example.factory.model.db.Session_Table;
+import com.aoliao.example.factory.persistence.Account;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 import com.raizlabs.android.dbflow.structure.database.transaction.QueryTransaction;
 
@@ -29,6 +29,7 @@ public class SessionRepository extends BaseDbRepository<Session> implements Sess
         super.load(callback);
         SQLite.select()
                 .from(Session.class)
+                .where(Session_Table.accountId.eq(Account.getUserId()))
                 .orderBy(Session_Table.modifyAt,false)
                 .limit(100)
                 .async()

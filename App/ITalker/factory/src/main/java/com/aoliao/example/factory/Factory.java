@@ -1,14 +1,13 @@
 package com.aoliao.example.factory;
 
 import android.support.annotation.StringRes;
-import android.util.Log;
 
 import com.aoliao.example.common.app.Application;
 import com.aoliao.example.factory.data.DataSource;
-import com.aoliao.example.factory.data.message.MessageCenter;
-import com.aoliao.example.factory.data.message.MessageDispatcher;
 import com.aoliao.example.factory.data.group.GroupCenter;
 import com.aoliao.example.factory.data.group.GroupDispatcher;
+import com.aoliao.example.factory.data.message.MessageCenter;
+import com.aoliao.example.factory.data.message.MessageDispatcher;
 import com.aoliao.example.factory.data.user.UserCenter;
 import com.aoliao.example.factory.data.user.UserDispatcher;
 import com.aoliao.example.factory.model.api.PushModel;
@@ -42,26 +41,27 @@ public class Factory {
     private final Gson mGson;
 
     static {
-        instance=new Factory();
+        instance = new Factory();
     }
 
-    private Factory(){
+    private Factory() {
         //新建一个4个线程的线程池
-        mExecutor= Executors.newFixedThreadPool(4);
-        mGson=new GsonBuilder()
+        mExecutor = Executors.newFixedThreadPool(4);
+        mGson = new GsonBuilder()
                 .setDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS")
                 //设置一个过滤器，数据库级别的Model不进行Json转换
                 .setExclusionStrategies(new DBFlowExclusionStrategy())
                 .create();
     }
-    public static Application app(){
+
+    public static Application app() {
         return Application.getInstance();
     }
 
     /**
      * 初始化 数据库 pushId
      */
-    public static void setup(){
+    public static void setup() {
         //数据库初始化时开启database
         FlowManager.init(new FlowConfig.Builder(app()).openDatabasesOnInit(true).build());
         Account.load(app());
@@ -69,13 +69,14 @@ public class Factory {
 
     /**
      * 异步运行的方法
+     *
      * @param runnable runnable
      */
-    public static void runOnAsync(Runnable runnable){
+    public static void runOnAsync(Runnable runnable) {
         instance.mExecutor.execute(runnable);
     }
 
-    public static Gson getGson(){
+    public static Gson getGson() {
         return instance.mGson;
     }
 
@@ -126,7 +127,7 @@ public class Factory {
                 break;
             case RspModel.ERROR_ACCOUNT_TOKEN:
                 Application.showToast(R.string.data_rsp_error_account_token);
-                instance.logout();
+                logout();
                 break;
             case RspModel.ERROR_ACCOUNT_LOGIN:
                 decodeRspCode(R.string.data_rsp_error_account_login, callback);
@@ -154,8 +155,10 @@ public class Factory {
     /**
      * 收到账户退出的消息需要进行账户退出重新登录
      */
-    private void logout() {
-
+    public static void logout() {
+        Account.logout();
+//        setup();
+        app().finishAll();
     }
 
     /**
@@ -176,7 +179,7 @@ public class Factory {
         for (PushModel.Entity entity : model.getEntities()) {
             switch (entity.type) {
                 case PushModel.ENTITY_TYPE_LOGOUT:
-                    instance.logout();
+                    logout();
                     // 退出情况下，直接返回，并且不可继续
                     return;
 

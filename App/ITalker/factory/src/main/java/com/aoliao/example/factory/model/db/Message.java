@@ -56,6 +56,17 @@ public class Message extends BaseDbModel<Message> implements Serializable {
     @ForeignKey(tableClass = User.class, stubbedRelationship = true)
     private User receiver;// 接收者人外键
 
+    @ForeignKey(tableClass = User.class, stubbedRelationship = true)
+    private User account;// 账户 外键
+
+    public User getAccount() {
+        return account;
+    }
+
+    public void setAccount(User account) {
+        this.account = account;
+    }
+
     public String getId() {
         return id;
     }

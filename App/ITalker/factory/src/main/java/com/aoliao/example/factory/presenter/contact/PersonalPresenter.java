@@ -1,5 +1,6 @@
 package com.aoliao.example.factory.presenter.contact;
 
+import com.aoliao.example.factory.Factory;
 import com.aoliao.example.factory.data.helper.UserHelper;
 import com.aoliao.example.factory.model.db.User;
 import com.aoliao.example.factory.persistence.Account;
@@ -14,7 +15,7 @@ import net.qiujuer.genius.kit.handler.runable.Action;
  */
 
 public class PersonalPresenter extends BasePresenter<PersonalContract.View>
-        implements PersonalContract.Presenter{
+        implements PersonalContract.Presenter {
 
     private User user;
 
@@ -25,21 +26,22 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
     @Override
     public void start() {
         super.start();
-        Run.onUiAsync(new Action() {
+
+        // 个人界面用户数据优先从网络拉取
+        Factory.runOnAsync(new Runnable() {
             @Override
-            public void call() {
-                PersonalContract.View view=getView();
-                if (view!=null) {
+            public void run() {
+                PersonalContract.View view = getView();
+                if (view != null) {
                     String id = view.getUserId();
-                    User user= UserHelper.searchFirstOfNet(id);
-                    view.onLoadDone(user);
+                    User user = UserHelper.searchFirstOfNet(id);
                     onLoaded(user);
                 }
             }
         });
     }
 
-    private void onLoaded( final User user) {
+    private void onLoaded(final User user) {
         this.user = user;
         // 是否就是我自己
         final boolean isSelf = user.getId().equalsIgnoreCase(Account.getUserId());
@@ -52,12 +54,12 @@ public class PersonalPresenter extends BasePresenter<PersonalContract.View>
         Run.onUiAsync(new Action() {
             @Override
             public void call() {
-                final PersonalContract.View view=getView();
-                if (view==null)
+                final PersonalContract.View view = getView();
+                if (view == null)
                     return;
                 view.onLoadDone(user);
                 view.setFollowStatus(isFollow);
-                view.allowSayHello(allowSayHello);
+                view.allowSayHelloOrLogout(allowSayHello,isSelf);
             }
         });
     }

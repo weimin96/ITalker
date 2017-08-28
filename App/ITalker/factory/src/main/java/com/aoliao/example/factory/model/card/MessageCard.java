@@ -4,6 +4,7 @@ package com.aoliao.example.factory.model.card;
 import com.aoliao.example.factory.model.db.Group;
 import com.aoliao.example.factory.model.db.Message;
 import com.aoliao.example.factory.model.db.User;
+import com.aoliao.example.factory.persistence.Account;
 
 import java.util.Date;
 
@@ -120,6 +121,7 @@ public class MessageCard {
         message.setSender(sender);
         message.setReceiver(receiver);
         message.setStatus(status);
+        message.setAccount(Account.getUser());
         return message;
     }
 }

@@ -1,5 +1,9 @@
 package com.aoliao.example.common.app;
 
+import android.app.*;
+import android.app.Activity;
+import android.content.Context;
+import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.annotation.StringRes;
 import android.widget.Toast;
@@ -8,6 +12,10 @@ import net.qiujuer.genius.kit.handler.Run;
 import net.qiujuer.genius.kit.handler.runable.Action;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+
+import static android.R.id.list;
 
 /**
  * @author 你的奥利奥
@@ -16,11 +24,64 @@ import java.io.File;
 
 public class Application extends android.app.Application {
     private static Application instance;
+    private List<Activity> mActivities = new ArrayList<>();
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
+
+        registerActivityLifecycleCallbacks(
+                new ActivityLifecycleCallbacks() {
+
+                    @Override
+                    public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                        mActivities.add(activity);
+                    }
+
+                    @Override
+                    public void onActivityStarted(Activity activity) {
+
+                    }
+
+                    @Override
+                    public void onActivityResumed(Activity activity) {
+
+                    }
+
+                    @Override
+                    public void onActivityPaused(Activity activity) {
+
+                    }
+
+                    @Override
+                    public void onActivityStopped(Activity activity) {
+
+                    }
+
+                    @Override
+                    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+                    }
+
+                    @Override
+                    public void onActivityDestroyed(Activity activity) {
+                        mActivities.remove(activity);
+                    }
+                }
+        );
+    }
+
+    public void finishAll(){
+        for (Activity activity : mActivities) {
+            activity.finish();
+        }
+        showAccountView();
+    }
+
+
+    protected void showAccountView(){
+
     }
 
     /**

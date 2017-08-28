@@ -30,6 +30,7 @@ public class GroupsRepository extends BaseDbRepository<Group>
 
         SQLite.select()
                 .from(Group.class)
+                .where(Group_Table.account_id.eq(Account.getUserId()))
                 .orderBy(Group_Table.name, true)
                 .limit(100)
                 .async()

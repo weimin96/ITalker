@@ -2,6 +2,8 @@ package com.aoliao.example.factory.model.card;
 
 import com.aoliao.example.factory.model.Author;
 import com.aoliao.example.factory.model.db.User;
+import com.aoliao.example.factory.model.db.UserFollow;
+import com.aoliao.example.factory.persistence.Account;
 
 import java.util.Date;
 
@@ -10,7 +12,7 @@ import java.util.Date;
  * @version 2017/8/18
  */
 
-public class UserCard implements Author{
+public class UserCard implements Author {
     private String id;
     private String name;
     private String phone;
@@ -129,5 +131,28 @@ public class UserCard implements Author{
             this.user = user;
         }
         return user;
+    }
+
+    private transient UserFollow targetFollow;
+    private transient UserFollow originFollow;
+
+    public UserFollow buildTargetFollow() {
+        if (targetFollow == null) {
+            UserFollow userFollow = new UserFollow();
+            userFollow.setTarget(user);
+            userFollow.setOrigin(Account.getUser());
+            this.targetFollow = userFollow;
+        }
+        return targetFollow;
+    }
+
+    public UserFollow buildOriginFollow() {
+        if (originFollow == null) {
+            UserFollow userFollow = new UserFollow();
+            userFollow.setTarget(Account.getUser());
+            userFollow.setOrigin(user);
+            this.originFollow = userFollow;
+        }
+        return originFollow;
     }
 }

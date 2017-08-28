@@ -18,7 +18,6 @@ import com.aoliao.example.factory.model.db.User_Table;
 import com.aoliao.example.factory.model.db.view.MemberUserModel;
 import com.aoliao.example.factory.net.Network;
 import com.aoliao.example.factory.net.RemoteService;
-import com.aoliao.example.factory.presenter.group.GroupMemberAddPresenter;
 import com.raizlabs.android.dbflow.sql.language.Join;
 import com.raizlabs.android.dbflow.sql.language.SQLite;
 
@@ -182,7 +181,7 @@ public class GroupHelper {
         });
     }
 
-//     关联查询一个用户和群成员的表，返回一个MemberUserModel表的集合
+    //     关联查询一个用户和群成员的表，返回一个MemberUserModel表的集合
     public static List<MemberUserModel> getMemberUsers(String groupId, int size) {
         return SQLite.select(GroupMember_Table.alias.withTable().as("alias"),
                 User_Table.id.withTable().as("userId"),

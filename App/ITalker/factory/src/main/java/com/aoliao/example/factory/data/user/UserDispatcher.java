@@ -5,13 +5,13 @@ import android.text.TextUtils;
 import com.aoliao.example.factory.data.helper.DbHelper;
 import com.aoliao.example.factory.model.card.UserCard;
 import com.aoliao.example.factory.model.db.User;
+import com.aoliao.example.factory.model.db.UserFollow;
+import com.aoliao.example.factory.persistence.Account;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-
-import static com.raizlabs.android.dbflow.config.FlowLog.Level.D;
 
 /**
  * @author 你的奥利奥
@@ -21,7 +21,7 @@ import static com.raizlabs.android.dbflow.config.FlowLog.Level.D;
 public class UserDispatcher implements UserCenter {
     private static UserCenter instance;
     //单线程池，一个一个的处理卡片
-    private final Executor mExecutor= Executors.newSingleThreadExecutor();
+    private final Executor mExecutor = Executors.newSingleThreadExecutor();
 
     public static UserCenter instance() {
         if (instance == null) {
@@ -35,7 +35,7 @@ public class UserDispatcher implements UserCenter {
 
     @Override
     public void dispatch(UserCard... cards) {
-        if (cards==null||cards.length==0){
+        if (cards == null || cards.length == 0) {
             return;
         }
         mExecutor.execute(new UserCardHandler(cards));
@@ -47,22 +47,32 @@ public class UserDispatcher implements UserCenter {
     private class UserCardHandler implements Runnable {
         private final UserCard[] cards;
 
+
         private UserCardHandler(UserCard[] cards) {
             this.cards = cards;
         }
 
         @Override
         public void run() {
-            List<User> users=new ArrayList<>();
+            List<User> users = new ArrayList<>();
+            List<UserFollow> originFollows = new ArrayList<>();
+            List<UserFollow> targetFollows = new ArrayList<>();
+
             for (UserCard card : cards) {
                 //进行过滤操作
-                if (card==null|| TextUtils.isEmpty(card.getId()))
+                if (card == null || TextUtils.isEmpty(card.getId()))
                     continue;
                 //添加操作
                 users.add(card.build());
+
+                //添加关注列表
+                originFollows.add(card.buildOriginFollow());
+                targetFollows.add(card.buildTargetFollow());
             }
             //进行数据库存储，并分发通知，异步操作
-            DbHelper.save(User.class,users.toArray(new User[0]));
+            DbHelper.save(User.class, users.toArray(new User[0]));
+            DbHelper.save(UserFollow.class, originFollows.toArray(new UserFollow[0]));
+            DbHelper.save(UserFollow.class, targetFollows.toArray(new UserFollow[0]));
         }
     }
 }

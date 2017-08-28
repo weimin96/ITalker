@@ -51,7 +51,12 @@
             android:theme="@style/AppTheme.Main"/>
         <activity
             android:name=".activities.AccountActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Account">
+            <intent-filter>
+                <action android:name="intent.action.LOGIN"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
         </activity>
         <activity
             android:name="com.yalantis.ucrop.UCropActivity"

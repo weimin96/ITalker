@@ -1,15 +1,11 @@
 package com.aoliao.example.italker.fragments.main;
 
 
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.aoliao.example.common.app.Fragment;
 import com.aoliao.example.common.app.PresenterFragment;
 import com.aoliao.example.common.widget.EmptyView;
 import com.aoliao.example.common.widget.PortraitView;
@@ -18,7 +14,6 @@ import com.aoliao.example.factory.model.db.User;
 import com.aoliao.example.factory.presenter.contact.ContactContract;
 import com.aoliao.example.factory.presenter.contact.ContactPresenter;
 import com.aoliao.example.italker.R;
-import com.aoliao.example.italker.activities.MainActivity;
 import com.aoliao.example.italker.activities.MessageActivity;
 import com.aoliao.example.italker.activities.PersonalActivity;
 import com.bumptech.glide.Glide;

@@ -22,7 +22,6 @@ import java.util.List;
 
 public class ContactPresenter extends BaseSourcePresenter<User,User,ContactDataSource,ContactContract.View>
 implements ContactContract.Presenter, DataSource.SucceedCallback<List<User>> {
-    private ContactDataSource mDataSource;
     public ContactPresenter(ContactContract.View view) {
         //初始化数据仓库
         super(new ContactRepository(),view);

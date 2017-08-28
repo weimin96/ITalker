@@ -5,6 +5,7 @@ import android.text.TextUtils;
 import com.aoliao.example.factory.data.helper.GroupHelper;
 import com.aoliao.example.factory.data.helper.MessageHelper;
 import com.aoliao.example.factory.data.helper.UserHelper;
+import com.aoliao.example.factory.persistence.Account;
 import com.raizlabs.android.dbflow.annotation.Column;
 import com.raizlabs.android.dbflow.annotation.ForeignKey;
 import com.raizlabs.android.dbflow.annotation.PrimaryKey;
@@ -36,6 +37,8 @@ public class Session extends BaseDbModel<Session> {
     private int unReadCount; // 未读数量，当没有在当前界面时，应当增加未读数量
     @Column
     private Date modifyAt; // 最后更改时间
+    @Column
+    private String accountId; //Id，本消息表的所属用户的Id
 
     @ForeignKey(tableClass = Message.class)
     private Message message; // 对应的消息，外键为Message的Id
@@ -47,6 +50,7 @@ public class Session extends BaseDbModel<Session> {
     public Session(Identify identify) {
         this.id = identify.id;
         this.receiverType = identify.type;
+        this.accountId= Account.getUserId(); // 账户id
     }
 
     public Session(Message message) {
@@ -65,6 +69,7 @@ public class Session extends BaseDbModel<Session> {
         this.message = message;
         this.content = message.getSampleContent();
         this.modifyAt = message.getCreateAt();
+        this.accountId= Account.getUserId(); // 账户id
     }
 
     public String getId() {
@@ -129,6 +134,14 @@ public class Session extends BaseDbModel<Session> {
 
     public void setModifyAt(Date modifyAt) {
         this.modifyAt = modifyAt;
+    }
+
+    public String getAccountId() {
+        return accountId;
+    }
+
+    public void setAccountId(String accountId) {
+        this.accountId = accountId;
     }
 
     @Override
