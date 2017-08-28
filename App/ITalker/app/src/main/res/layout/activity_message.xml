@@ -14,7 +14,7 @@
         android:background="@color/white"
         android:contentDescription="@string/app_name"
         android:foreground="@color/black_alpha_16"
-        android:scaleType="centerInside"
-        android:src="@drawable/bg_src_woman" />
+        android:scaleType="centerCrop"
+        android:src="@drawable/flower1" />
 
 </FrameLayout>

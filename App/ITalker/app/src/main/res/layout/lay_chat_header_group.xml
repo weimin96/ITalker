@@ -23,7 +23,8 @@
         android:layout_height="@dimen/len_128"
         android:contentDescription="@string/app_name"
         android:scaleType="centerCrop"
-        android:src="@drawable/default_banner_chat"/>
+        android:src="@drawable/default_banner_chat"
+        />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"

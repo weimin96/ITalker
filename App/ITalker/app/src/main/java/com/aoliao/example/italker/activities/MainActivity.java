@@ -76,7 +76,7 @@ public class MainActivity extends Activity implements BottomNavigationView.OnNav
         mNavigation.setOnNavigationItemSelectedListener(this);
 
         Glide.with(this)
-                .load(R.drawable.bg_src_morning)
+                .load(R.drawable.background)
                 .centerCrop()
                 .into(new ViewTarget<View, GlideDrawable>(mAppBarLayout) {
 
